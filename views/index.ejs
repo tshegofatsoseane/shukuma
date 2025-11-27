@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shukuma - Your Personal Fitness Revolution</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+                <img 
+          src="/assets/shukumalogo-removebg-preview.png" 
+          alt="Shukuma Logo"
+          style="
+            width: 45px; 
+            height: auto; 
+            filter: drop-shadow(0 10px 30px rgba(255, 107, 53, 0.4));
+          "
+        >
+         SHUKUMA
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <% if (typeof user !== 'undefined' && user) { %>
+            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="/workouts/shuffle">Shuffle</a></li>
+            <li class="nav-item"><a class="nav-link" href="/challenges">Challenges</a></li>
+            <li class="nav-item"><span class="nav-link"><i class="bi bi-person-circle"></i> <%= user.username %></span></li>
+            <li class="nav-item"><a class="nav-link" href="/auth/logout"><i class="bi bi-box-arrow-right"></i></a></li>
+          <% } else { %>
+            <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+            <li class="nav-item ms-2"><a class="btn btn-primary btn-sm" href="/auth/signup">Get Started</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container text-center">
+
+      <div class="hero-logo mb-4">
+        <img 
+          src="/assets/shukumalogo-removebg-preview.png" 
+          alt="Shukuma Logo"
+          style="
+            width: 180px; 
+            height: auto; 
+            filter: drop-shadow(0 10px 30px rgba(255, 107, 53, 0.4));
+          "
+        >
+      </div>
+
+      <h1 class="mb-4">Transform Your Body<br>Anywhere, Anytime</h1>
+
+      <p class="mb-5" style="max-width: 700px; margin: 0 auto 3rem;">
+        No gym. No excuses. Just pure fitness with randomized workout cards<br>
+        that make staying active fun, simple, and addictive.
+      </p>
+
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="/auth/signup" class="btn btn-primary btn-lg px-5">
+          Start Free <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="#features" class="btn btn-outline-primary btn-lg px-5">
+          Learn More
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Stats Banner -->
+  <div class="container my-5 py-4">
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-value">30+</div>
+          <div class="stat-label">Workout Cards</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-value">∞</div>
+          <div class="stat-label">Combinations</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-value">R0</div>
+          <div class="stat-label">Monthly Fee</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Equipment Free</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div hidden id="features" class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-gradient mb-3">Why Shukuma?</h2>
+      <p class="text-secondary fs-5">The smartest way to stay active in 2024</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Randomized Workouts</h4>
+          <p class="text-secondary">Shuffle for a surprise every time. Never fall into boring workout routines again.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Streak Tracking</h4>
+          <p class="text-secondary">Build daily habits. Watch your streak grow and compete with yourself.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Daily Challenges</h4>
+          <p class="text-secondary">Complete featured cards, time trials, and team competitions.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Team Battles</h4>
+          <p class="text-secondary">Create teams, share codes, compete together on leaderboards.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Mobile First</h4>
+          <p class="text-secondary">Perfect on all devices. Workout from your phone, tablet, or laptop.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 p-4 text-center">
+          <h4 class="mb-3 text-gradient">Quick Sessions</h4>
+          <p class="text-secondary">No hour-long commitments. Get effective workouts in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div hidden class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-gradient mb-3">Get Started in Seconds</h2>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-4 text-center">
+        <div class="mb-4">
+          <div class="display-1 fw-bold text-gradient">01</div>
+        </div>
+        <h4 class="mb-3">Sign Up Free</h4>
+        <p class="text-secondary">Create your account in 30 seconds. No payment info needed.</p>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="mb-4">
+          <div class="display-1 fw-bold text-gradient">02</div>
+        </div>
+        <h4 class="mb-3">Hit Shuffle</h4>
+        <p class="text-secondary">Get a random workout card and follow the instructions.</p>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="mb-4">
+          <div class="display-1 fw-bold text-gradient">03</div>
+        </div>
+        <h4 class="mb-3">Track Progress</h4>
+        <p class="text-secondary">Build streaks, unlock achievements, compete globally.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge Preview -->
+  <div hidden class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-gradient mb-3">Multiple Ways to Win</h2>
+      <p class="text-secondary fs-5">Stay motivated with diverse challenges</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card p-4 h-100">
+          <div class="d-flex align-items-center">
+            <span style="font-size: 3.5rem; margin-right: 1.5rem; filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));">⏱️</span>
+            <div>
+              <h4 class="mb-1">Time Trials</h4>
+              <p class="text-secondary mb-0">Complete max cards in 2 minutes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card p-4 h-100">
+          <div class="d-flex align-items-center">
+            <span style="font-size: 3.5rem; margin-right: 1.5rem; filter: drop-shadow(0 0 20px rgba(255, 179, 71, 0.3));">📅</span>
+            <div>
+              <h4 class="mb-1">Daily Featured</h4>
+              <p class="text-secondary mb-0">New challenge card every day</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card p-4 h-100">
+          <div class="d-flex align-items-center">
+            <span style="font-size: 3.5rem; margin-right: 1.5rem; filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));">📊</span>
+            <div>
+              <h4 class="mb-1">Leaderboards</h4>
+              <p class="text-secondary mb-0">Compete for top rankings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card p-4 h-100">
+          <div class="d-flex align-items-center">
+            <span style="font-size: 3.5rem; margin-right: 1.5rem; filter: drop-shadow(0 0 20px rgba(255, 159, 102, 0.3));">🤝</span>
+            <div>
+              <h4 class="mb-1">Team Competitions</h4>
+              <p class="text-secondary mb-0">Join forces and dominate together</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="container my-5 py-5">
+    <div class="card text-center p-5" style="background: linear-gradient(135deg, rgba(255, 245, 237, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%); border: 2px solid rgba(255, 107, 53, 0.2);">
+      <h2 class="display-3 fw-bold text-gradient mb-4">Ready to Level Up?</h2>
+      <p class="fs-4 text-secondary mb-5">Join the fitness revolution. No equipment. No excuses.</p>
+      <div>
+        <a href="/auth/signup" class="btn btn-primary btn-lg px-5 py-3">
+          Start Your Journey <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-5">
+    <div class="container">
+      <p class="text-secondary mb-2"><i class="bi bi-lightning-charge-fill text-gradient"></i> &copy; 2024 Shukuma. Built with passion for fitness.</p>
+      <p class="text-muted small">Made with ❤️ by Yanga Ngcayisa</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
