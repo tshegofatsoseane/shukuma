@@ -9,9 +9,11 @@ const path = require('path');
 const app = express();
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI + "?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  tls: true,
+  tlsCAFile: '/etc/ssl/certs/ca-certificates.crt'
 })
 .then(() => console.log('✅ MongoDB Connected'))
 .catch(err => console.error('❌ MongoDB Error:', err));
