@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shukuma', {
+mongoose.connect(process.env.MONGODB_URI + "?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
