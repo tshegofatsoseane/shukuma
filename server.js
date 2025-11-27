@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   tls: true,
-  tlsCAFile: '/etc/ssl/certs/ca-certificates.crt'
+  tlsCAFile: '/etc/ssl/certs/ca-certificates.crt' // required in Docker
 })
 .then(() => console.log('✅ MongoDB Connected'))
 .catch(err => console.error('❌ MongoDB Error:', err));
