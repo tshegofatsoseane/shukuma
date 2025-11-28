@@ -1,163 +1,195 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Challenges - Shukuma</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <style>
-    .challenge-card { border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-    .challenge-badge { font-size: 0.9rem; padding: 0.25rem 0.5rem; border-radius: 5px; }
-    .daily { background-color: #ffc107; color: #212529; }
-    .streak { background-color: #dc3545; color: #fff; }
-    .team { background-color: #0dcaf0; color: #212529; }
-    .leaderboard-item { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef; }
-    .leaderboard-rank { width: 3rem; text-align: center; font-weight: bold; }
-    .gold { color: #ffd700; }
-    .silver { color: #c0c0c0; }
-    .bronze { color: #cd7f32; }
-  </style>
-</head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg shadow-sm mb-4">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-                <img 
-          src="/assets/shukumalogo-removebg-preview.png" 
-          alt="Shukuma Logo"
-          style="
-            width: 45px; 
-            height: auto; 
-            filter: drop-shadow(0 10px 30px rgba(255, 107, 53, 0.4));
-          "
-        >
-         SHUKUMA
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="/workouts/shuffle"><i class="bi bi-shuffle"></i> Shuffle</a></li>
-          <li class="nav-item"><a class="nav-link" href="/progress"><i class="bi bi-graph-up"></i> Progress</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/challenges"><i class="bi bi-trophy"></i> Challenges</a></li>
-          <li class="nav-item"><a class="nav-link" href="/challenges/teams"><i class="bi bi-people"></i> Teams</a></li>
-          <li class="nav-item"><span class="nav-link"><i class="bi bi-person-circle"></i> <%= user.username %></span></li>
-          <li class="nav-item"><a class="nav-link" href="/auth/logout"><i class="bi bi-box-arrow-right"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<%- include('partials/header', { title: "Challenges", user }) %>
 
-  <div class="container mb-5">
+    <!-- mainpage -->
+
+
+  <div class="container my-5">
+
     <div class="text-center mb-5">
-      <h1 class="display-4 fw-bold">Challenges</h1>
-      <p class="text-muted fs-5">Push yourself and compete with others!</p>
+
+      <h1 class="display-3 fw-bold text-gradient mb-3">Challenges</h1>
+      <p class="text-secondary fs-4">Push yourself, compete, and have fun while doing it.</p>
     </div>
 
-    <div class="row g-4">
-      <!-- Daily Challenge -->
-      <div class="col-md-6">
-        <div class="card challenge-card p-4 h-100">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
-              <h5><span class="challenge-badge daily">Daily Card Challenge</span></h5>
-              <% if (dailyCard) { %>
-                <h4 class="mt-2 mb-1"><%= dailyCard.name %></h4>
-                <p class="text-muted mb-3"><%= dailyCard.description %></p>
-                <% if (dailyCompleted) { %>
-                  <div class="alert alert-success py-2">
-                    <i class="bi bi-check-circle-fill"></i> Completed!
-                  </div>
-                <% } else { %>
-                  <form method="POST" action="/workouts/complete/<%= dailyCard._id %>">
-                    <input type="hidden" name="challengeType" value="daily">
-                    <button type="submit" class="btn btn-warning w-100">
-                      <i class="bi bi-check-circle"></i> Complete Daily Challenge
-                    </button>
-                  </form>
-                <% } %>
-              <% } else { %>
-                <p class="text-muted">No challenge for today.</p>
-              <% } %>
-            </div>
-            <div class="display-1 text-warning"></div>
-          </div>
-        </div>
-      </div>
+        <div class="row g-4">
 
-      <!-- Streak Challenge -->
-      <div class="col-md-6">
-        <div class="card challenge-card p-4 h-100">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <h5><span class="challenge-badge streak">Streak Challenge</span></h5>
-              <p class="text-muted mb-2">Work out daily to maintain your streak!</p>
-              <h2 class="text-danger"> <%= streak %> Days</h2>
-              <small class="text-muted">Keep going! Longer streaks reward more.</small>
-            </div>
-            <div class="display-1 text-danger"></div>
-          </div>
-        </div>
-      </div>
+            <!-- daily chllange -->
+            <div class="col-md-6">
+                <div class="card challenge-card p-4 h-100">
 
-      <!-- Leaderboard -->
-      <div class="col-md-12">
-        <div class="card challenge-card p-4">
-          <h5 class="mb-3"><i class="bi bi-bar-chart"></i> Leaderboard</h5>
-          <p class="text-muted mb-3">Top performers this month</p>
-          <% if (leaderboard.length === 0) { %>
-            <p class="text-center text-muted">No data yet. Be the first!</p>
-          <% } else { %>
-            <% leaderboard.forEach((entry, index) => { %>
-              <div class="leaderboard-item">
-                <div class="leaderboard-rank <%= index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '' %>">
-                  #<%= index + 1 %>
+
+            
+                    <h5><span class="challenge-badge daily">Daily Challenge</span></h5>
+
+
+                    <% if (dailyCard) { %>
+
+
+
+                    <h4 class="mt-2"><%= dailyCard.name %></h4>
+                    <p class="text-muted"><%= dailyCard.description %></p>
+
+                    <% if (dailyCompleted) { %>
+
+
+                    <div class="alert alert-success py-2">
+
+                        <i class="bi bi-check-circle-fill"></i> Done for today!
+                    </div>
+                    <% } else { %>
+
+
+                    <!-- refactor alater -->
+                    <form action="/workouts/complete/<%= dailyCard._id %>" method="POST">
+
+                        <input type="hidden" name="challengeType" value="daily" />
+
+                        <button class="btn btn-warning w-100">
+
+                            <i class="bi bi-check-circle"></i> Mark As Completed
+                        </button>
+
+
+                    </form>
+
+                    <% } %>
+
+                    <% } else { %>
+
+                    <p class="text-muted">No daily challenge assigned yet.</p>
+                    <% } %>
+
                 </div>
-                <div class="flex-grow-1"><strong><%= entry._id.username %></strong></div>
-                <div><span class="badge bg-primary"><%= entry.count %> workouts</span></div>
-              </div>
-            <% }) %>
-          <% } %>
-        </div>
-      </div>
+            </div>
 
-      <!-- Timed Challenge -->
-      <div class="col-md-6">
-        <div class="card challenge-card p-4 h-100 d-flex justify-content-between align-items-center">
-          <div>
-            <h5><i class="bi bi-stopwatch"></i> Time Challenge</h5>
-            <p class="text-muted mb-2">Complete as many cards as possible in 2 minutes!</p>
-          </div>
-          <a href="/challenges/timed" class="btn btn-danger"><i class="bi bi-stopwatch"></i> Start</a>
-        </div>
-      </div>
 
-      <!-- Team Challenge -->
-      <div class="col-md-6">
-        <div class="card challenge-card p-4 h-100 d-flex justify-content-between align-items-center">
-          <div>
-            <h5><span class="challenge-badge team">Team Challenge</span></h5>
-            <p class="text-muted mb-2">Join forces and conquer challenges together!</p>
-          </div>
-          <a href="/challenges/teams" class="btn btn-info"><i class="bi bi-people-fill"></i> View Teams</a>
+            <!-- streaks -->
+            <div class="col-md-6">
+                <div class="card challenge-card p-4 h-100 d-flex justify-content-between">
+
+                    <div>
+                        <h5><span class="challenge-badge streak">Streak Challenge</span></h5>
+
+                        <p class="text-muted">Your current streak:</p>
+
+                        <h2 class="text-danger" style="font-weight:800;"><%= streak %> Days</h2>
+
+
+
+
+                        <small class="text-muted">Consistency really builds momentum.</small>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- monthly leadrboard -->
+
+            <div class="col-12">
+                <div class="card challenge-card p-4">
+
+                    <h5><i class="bi bi-bar-chart"></i> Leaderboard</h5>
+
+                    <p class="text-muted">Top performers for this month</p>
+
+                    <% if (!leaderboard || leaderboard.length === 0) { %>
+
+
+
+
+                    <p class="text-center text-muted">No entries yet. Be the first to get on the board!</p>
+                    <% } else { %>
+
+                    <% leaderboard.forEach((entry, rankIndex) => { %>
+                    <div class="leaderboard-item">
+
+                        <!-- Yes, I'll probably prettify this later -->
+
+                        <div class="leaderboard-rank
+
+                          <%= rankIndex === 0 ? 'gold' : rankIndex === 1 ? 'silver' : rankIndex === 2 ? 'bronze' : '' %>">
+                            #<%= rankIndex + 1 %>
+
+
+                        </div>
+
+                        <strong><%= entry._id.username %></strong>
+
+                        <span class="badge bg-primary"><%= entry.count %> workouts</span>
+                    </div>
+                    <% }) %>
+
+                    <% } %>
+
+                </div>
+            </div>
+
+
+            <!-- timed chalange -->
+            <div class="col-md-6">
+
+
+
+                <div class="card challenge-card p-4 h-100 d-flex justify-content-between align-items-center">
+                    <div>
+
+
+
+
+                        <h5><i class="bi bi-stopwatch"></i> Timer Challenge</h5>
+
+
+                        <p class="text-muted">Try completing as many cards as you can in 2 minutes.</p>
+                    </div>
+
+                    <a href="/challenges/timed" class="btn btn-danger">
+
+                        <i class="bi bi-stopwatch"></i> Start
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- yeam challange -->
+            <div class="col-md-6">
+
+                <div class="card challenge-card p-4 h-100 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5><span class="challenge-badge team">Team Challenge</span></h5>
+
+                        <p class="text-muted">Join a team and complete challenges together.</p>
+
+
+                    </div>
+
+                    <a href="/challenges/teams" class="btn btn-info">
+                        <i class="bi bi-people-fill"></i> View Teams
+                    </a>
+                </div>
+
+
+            </div>
+
+
+
         </div>
-      </div>
     </div>
-  </div>
 
-  <footer class="text-center py-5 mt-5 bg-light">
-    <div class="container">
-      <p class="text-secondary mb-2"><i class="bi bi-lightning-charge-fill text-gradient"></i> &copy; 2024 Shukuma</p>
-      <p class="text-muted small">Made with ❤️ by Yanga Ngcayisa</p>
-    </div>
-  </footer>
+   <!-- footer 
+    <footer class="text-center py-8 mt-2 bg-light">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/main.js"></script>
-</body>
-</html>
+        <p class="text-secondary mb-1">
+
+            <img src ="assets/logo" alt="logo">  2024 Shukuma
+        </p>
+        <small class="text-muted">Made by Yanga Ngcayisa</small>
+
+
+    </footer> -->
+ 
+
+<%- include('partials/footer') %>
+

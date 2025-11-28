@@ -39,12 +39,14 @@ function startTimedChallenge() {
   timeRemaining = 120;
   cardsCompleted = 0;
   updateTimerDisplay();
+  
   timerInterval = setInterval(() => {
     timeRemaining--;
     updateTimerDisplay();
     if (timeRemaining <= 0) endTimedChallenge();
     else if (timeRemaining <= 10) document.querySelector('.timer-display')?.classList.add('warning');
   }, 1000);
+  
   document.getElementById('startBtn')?.classList.add('d-none');
   document.getElementById('challengeArea')?.classList.remove('d-none');
   shuffleTimedCard();
@@ -61,10 +63,17 @@ function updateTimerDisplay() {
 }
 
 function shuffleTimedCard() {
-  fetch('/api/workouts/random').then(res => res.json()).then(workout => {
-    document.getElementById('timedCardName').textContent = workout.name;
-    document.getElementById('timedCardDesc').textContent = workout.description;
-  });
+  fetch('/workouts/random')
+    .then(res => res.json())
+    .then(workout => {
+      document.getElementById('timedCardName').textContent = workout.name;
+      document.getElementById('timedCardDesc').textContent = workout.description;
+    })
+    .catch(err => {
+      console.error('Error fetching workout:', err);
+      document.getElementById('timedCardName').textContent = 'Error loading workout';
+      document.getElementById('timedCardDesc').textContent = 'Please refresh and try again';
+    });
 }
 
 function completeTimedCard() {

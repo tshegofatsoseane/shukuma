@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shuffle Workout - Shukuma</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-            <a class="navbar-brand" href="/">
-                <img 
-          src="/assets/shukumalogo-removebg-preview.png" 
-          alt="Shukuma Logo"
-          style="
-            width: 45px; 
-            height: auto; 
-            filter: drop-shadow(0 10px 30px rgba(255, 107, 53, 0.4));
-          "
-        >
-         SHUKUMA
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="/workouts/shuffle"><i class="bi bi-shuffle"></i> Shuffle</a></li>
-          <li class="nav-item"><a class="nav-link" href="/progress"><i class="bi bi-graph-up"></i> Progress</a></li>
-          <li class="nav-item"><a class="nav-link" href="/challenges"><i class="bi bi-trophy"></i> Challenges</a></li>
-          <li class="nav-item"><a class="nav-link" href="/challenges/teams"><i class="bi bi-people"></i> Teams</a></li>
-          <li class="nav-item"><span class="nav-link"><i class="bi bi-person-circle"></i> <%= typeof user !== 'undefined' ? user.username : '' %></span></li>
-          <li class="nav-item"><a class="nav-link" href="/auth/logout"><i class="bi bi-box-arrow-right"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<%- include('partials/header', { title: "Shuffle", user }) %>
 
   <div class="container my-5">
     <div class="text-center mb-5">
@@ -96,14 +56,4 @@
 
 
 
-  <footer class="text-center py-5 mt-5">
-    <div class="container">
-      <p class="text-secondary mb-2"><i class="bi bi-lightning-charge-fill text-gradient"></i> &copy; 2024 Shukuma</p>
-      <p class="text-muted small">Made with ❤️ by Yanga Ngcayisa</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/main.js"></script>
-</body>
-</html>
+<%- include('partials/footer') %>

@@ -623,3 +623,70 @@ body::before {
     font-size: 1.5rem; 
   }
 }
+
+
+        .challenge-card {
+            border-radius: 15px;
+
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+
+        }
+
+        .challenge-badge {
+            padding: 4px 8px;
+
+            font-size: .9rem;
+            border-radius: 6px;
+        }
+
+        .daily {
+            background: #ffc107;
+
+            color: #212529;
+        }
+
+        .streak {
+            background: #dc3545;
+            color: white;
+        }
+
+        .team {
+            background: #0dcaf0;
+            color: #212529;
+
+        }
+
+        /* Leaderboard styling */
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: .5rem 0;
+
+
+            border-bottom: 1px solid #ececec;
+        }
+
+        .leaderboard-rank {
+
+            font-weight: bold;
+            width: 3rem;
+
+            text-align: center;
+        }
+
+
+        /* medal colours */
+        .gold {
+            color: #ffd700;
+        }
+
+        .silver {
+            color: #c0c0c0;
+        }z
+
+
+        .bronze {
+            color: #cd7f32;
+        }
