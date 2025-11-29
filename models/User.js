@@ -1,6 +1,3 @@
-// ============================================
-// FILE: models/User.js
-// ============================================
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -61,7 +58,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Hash password before saving
+// hash passwrd befor saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   
@@ -74,30 +71,30 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// Method to compare passwords
+// method to compre password
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Method to update streak
+// update streak
 userSchema.methods.updateStreak = function() {
   const today = new Date().setHours(0, 0, 0, 0);
   const lastWorkout = this.lastWorkoutDate ? new Date(this.lastWorkoutDate).setHours(0, 0, 0, 0) : null;
   
   if (!lastWorkout) {
-    // First workout ever
+    // first workout
     this.streakCount = 1;
   } else {
     const dayDiff = (today - lastWorkout) / (1000 * 60 * 60 * 24);
     
     if (dayDiff === 1) {
-      // Consecutive day
+      // consecutive day
       this.streakCount += 1;
     } else if (dayDiff > 1) {
-      // Streak broken
+      // streak broken
       this.streakCount = 1;
     }
-    // dayDiff === 0 means already worked out today, no change
+    // dayDiff === 0 means already worked out today..no change
   }
   
   this.lastWorkoutDate = new Date();

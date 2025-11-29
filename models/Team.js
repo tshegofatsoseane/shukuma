@@ -27,7 +27,7 @@ const teamSchema = new mongoose.Schema({
   }
 });
 
-// Generate team code BEFORE validation
+// generte team code befor valdation
 teamSchema.pre('validate', function(next) {
   if (!this.teamCode) {
     this.teamCode = generateTeamCode();
@@ -35,7 +35,7 @@ teamSchema.pre('validate', function(next) {
   next();
 });
 
-// Helper function to generate team code
+// helpr functio to generte team code
 function generateTeamCode() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }

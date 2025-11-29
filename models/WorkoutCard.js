@@ -1,6 +1,3 @@
-// ============================================
-// FILE: models/WorkoutCard.js
-// ============================================
 const mongoose = require('mongoose');
 
 const workoutCardSchema = new mongoose.Schema({
