@@ -161,19 +161,6 @@ Navigate to: **http://localhost:3000**
 2. Fill in your details
 3. Start shuffling workouts!
 
-### Admin Access
-
-- Email: `admin@shukuma.com`
-- Password: `admin123`
-- **⚠️ CHANGE THIS PASSWORD IN PRODUCTION!**
-
-Admin can:
-
-- Add new workout cards
-- Edit existing workouts
-- Delete workouts
-- Access: `/admin/workouts`
-
 ---
 
 ### Test Authentication
