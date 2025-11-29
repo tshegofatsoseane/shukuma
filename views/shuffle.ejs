@@ -6,7 +6,7 @@
       <p class="text-secondary fs-4">Click shuffle to get your next exercise!</p>
     </div>
 
-    <!-- Shuffle Button -->
+    <!-- shuffle button -->
     <% if (!workout) { %>
       <div class="text-center mb-5">
         <form method="POST" action="/workouts/shuffle">
@@ -18,7 +18,7 @@
       </div>
     <% } %>
 
-    <!-- Workout Card Display -->
+    <!-- workout card display -->
     <% if (workout) { %>
       <div class="row justify-content-center mb-5">
         <div class="col-lg-8">

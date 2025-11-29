@@ -37,6 +37,20 @@ const userSchema = new mongoose.Schema({
     ref: 'Team',
     default: null
   },
+    friends: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  friendRequests: [{
+    from: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   isAdmin: {
     type: Boolean,
     default: false

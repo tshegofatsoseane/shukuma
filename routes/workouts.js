@@ -137,19 +137,29 @@ router.post('/complete/:id', requireAuth, async (req, res) => {
 
 
 
-//  return a random workout for the timned challanges page
+// GET /workouts/random - return a random workout
 router.get('/random', requireAuth, async (req, res) => {
   try {
     const total = await WorkoutCard.countDocuments();
-    const randomIndex = Math.floor(Math.random() * total);
 
+    if (total === 0) {
+      return res.status(404).json({ error: 'No workouts available.' });
+    }
+
+    const randomIndex = Math.floor(Math.random() * total);
     const card = await WorkoutCard.findOne().skip(randomIndex);
 
+    if (!card) {
+      return res.status(404).json({ error: 'Workout not found.' });
+    }
+
     res.json({
-      id: card._id,
+      _id: card._id,
       name: card.name,
-      description: card.description
+      description: card.description,
+      category: card.category || "General"
     });
+
   } catch (err) {
     console.error('Error getting random workout:', err);
     res.status(500).json({ error: 'Failed to load random workout' });

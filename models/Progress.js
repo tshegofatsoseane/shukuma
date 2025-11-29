@@ -22,9 +22,22 @@ const progressSchema = new mongoose.Schema({
     type: String,
     enum: ['daily', 'timed', 'regular', 'team'],
     default: 'regular'
-  }
+  },
+  cheers: [{
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    emoji: {
+      type: String,
+      default: '💪'
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }]
 });
-
 // Index for efficient queries
 progressSchema.index({ userId: 1, completedAt: -1 });
 
